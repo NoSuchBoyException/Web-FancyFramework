@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
- * Interceptor used to forward client request to back-end controller
+ * Used to forward client request to back-end controller by version
  * 
  * @author Dongfan Yang
  * @time 2015年12月29日

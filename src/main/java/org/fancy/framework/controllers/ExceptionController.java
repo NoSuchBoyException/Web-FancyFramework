@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.fancy.framework.constants.ErrorConsts;
 import org.fancy.framework.constants.FieldConsts.ResponseFields;
-import org.fancy.framework.helpers.JSONHelper;
+import org.fancy.framework.helpers.TransHelper;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * The exception controller used to handle all exceptions thrown in project
+ * The controller used to handle all exceptions thrown in project
  * 
  * @author Dongfan Yang
  * @time 2015年12月29日
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ExceptionController {
 
-	private static JSONHelper jsonHelper = JSONHelper.getInstance();
+	private static TransHelper transHelper = TransHelper.getInstance();
 
 	/**
 	 * Handle checked exception
@@ -39,7 +39,7 @@ public class ExceptionController {
 		String errorMsg = (String) request
 				.getAttribute(ResponseFields.ERROR_MSG);
 
-		return jsonHelper.buildResultResp(errorCode, errorMsg);
+		return transHelper.transResultResp(errorCode, errorMsg);
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class ExceptionController {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		return jsonHelper.buildErrorResp(
+		return transHelper.transErrorResp(
 				ErrorConsts.EC_SERVER_INTERNAL_ERROR,
 				ErrorConsts.MSG_SERVER_INTERNAL_ERROR);
 	}

@@ -12,7 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
- * Interceptor used to auth client request
+ * Used to auth client request and make sure only legal request can access to
+ * service
  * 
  * @author Dongfan Yang
  * @time 2015年12月29日

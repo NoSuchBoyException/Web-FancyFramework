@@ -11,7 +11,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Handle and dispatch all exceptions thrown in project
+ * Used to handle and dispatch all exceptions thrown in project
  * 
  * @author Dongfan Yang
  * @time 2015年12月29日

@@ -1,5 +1,11 @@
 package org.fancy.framework.constants;
 
+/**
+ * Defines all field constants such as header fields
+ * 
+ * @author Dongfan Yang
+ * @time 2015年12月31日
+ */
 public class FieldConsts {
 
 	public static class HeaderFields {

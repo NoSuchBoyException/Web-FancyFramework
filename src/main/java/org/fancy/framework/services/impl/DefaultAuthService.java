@@ -15,7 +15,7 @@ public class DefaultAuthService extends AbstractService {
 	public Object execute(HttpServletRequest request, Object[] params)
 			throws Exception {
 		
-		// do auth job here and return auth result
+		// Do auth job here and return auth result.
 		Map<String, Object> responseMap = new HashMap<>();
 		responseMap.put(ResponseFields.ERROR_CODE, ErrorConsts.EC_SUCCESS);
 		return responseMap;

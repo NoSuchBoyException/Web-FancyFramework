@@ -6,12 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.fancy.framework.exceptions.CookieNotFoundException;
 
-/**
- * Used to do cookie process, including add, get, delete and so on
- * 
- * @author Dongfan Yang
- * @time 2016年2月29日
- */
 public class CookieUtil {
 
 	private static volatile CookieUtil instance;

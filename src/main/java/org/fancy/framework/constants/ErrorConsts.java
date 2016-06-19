@@ -1,7 +1,7 @@
 package org.fancy.framework.constants;
 
 /**
- * Class include all constants error code and error message
+ * Defines all error code and error message constants
  * 
  * @author Dongfan Yang
  * @time 2015年12月31日

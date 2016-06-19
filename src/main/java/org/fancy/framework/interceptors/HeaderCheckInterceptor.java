@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
- * Interceptor used to check the header of client request
+ * Used to check the validity of HTTP headers from client request
  * 
  * @author Dongfan Yang
  * @time 2015年12月29日
@@ -90,7 +90,6 @@ public class HeaderCheckInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 
 		List<String> hosts = propertiesUtil.getList("host.self", "\r");
-		
 		if (hosts.contains(request.getServerName())) {
 			return true;
 		} else {

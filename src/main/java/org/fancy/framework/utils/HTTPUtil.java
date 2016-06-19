@@ -15,12 +15,6 @@ import javax.net.ssl.SSLSession;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 
-/**
- * Used to do HTTP and HTTPS request
- * 
- * @author Dongfan Yang
- * @time 2016年3月3日
- */
 public class HTTPUtil {
 
 	private static final int READ_TIMEOUT = 20 * 1000;

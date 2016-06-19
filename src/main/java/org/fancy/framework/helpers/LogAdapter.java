@@ -10,7 +10,7 @@ import org.fancy.framework.exceptions.CheckedException;
 import org.fancy.framework.exceptions.ValueNotFoundException;
 
 /**
- * Used to adapt log parameters to a log bean
+ * A adapter class which Used to adapt log parameters to a log bean
  * 
  * @author Dongfan Yang
  * @time 2016年3月3日

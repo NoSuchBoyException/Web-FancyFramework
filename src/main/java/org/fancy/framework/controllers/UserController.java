@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The controller used to handle all user request
+ * 
+ * @author Dongfan Yang
+ * @time 2015年12月29日
+ */
 @RestController
 public class UserController {
 

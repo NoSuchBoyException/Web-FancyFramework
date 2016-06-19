@@ -8,12 +8,6 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 
-/**
- * Used to get properties configuration from properties file
- * 
- * @author Dongfan Yang
- * @time 2016年3月28日
- */
 public class PropertiesUtil extends PropertyPlaceholderConfigurer {
 
 	private static PropertiesUtil instance;
