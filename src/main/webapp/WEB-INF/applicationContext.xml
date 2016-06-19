@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+  	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+  	http://www.springframework.org/schema/context
+  	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+  	http://www.springframework.org/schema/aop  
+    http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+    
+	<bean id="propertiesUtil" class="org.fancy.framework.utils.PropertiesUtil">
+		<property name="locations">
+			<list>
+				<value>classpath:*.properties</value>
+			</list>
+		</property>
+	</bean>
+	 
+	<aop:config>
+        <aop:aspect id="exceptionLogAspect" ref="exceptionLogAspectBean">
+            <aop:pointcut id="exception" expression="execution(* org.fancy.framework.core.ExceptionHandler.resolveException(..)) &amp;&amp; args(..)" />
+            <aop:before pointcut-ref="exception" method="doBefore" />
+        </aop:aspect>
+        <aop:aspect id="serviceLogAspect" ref="serviceLogAspectBean">
+            <aop:pointcut id="service" expression="execution(public * org.fancy.framework.services.impl.*.*(..)) &amp;&amp; args(..)" />
+            <aop:around pointcut-ref="service" method="doAround" />
+        </aop:aspect>
+    </aop:config>
+    
+    <!-- log related beans -->
+    <bean id="logDao" class="org.fancy.framework.daos.impl.LogDao" />
+    <bean id="exceptionLogAspectBean" class="org.fancy.framework.aspects.impl.ExceptionLogAspect" />
+    <bean id="serviceLogAspectBean" class="org.fancy.framework.aspects.impl.ServiceLogAspect" />
+	
+	<!-- empty auth related beans -->
+	<bean id="emptyAuthService" class="org.fancy.framework.services.impl.EmptyAuthService" />
+
+	<!-- default auth related beans -->
+	<bean id="defaultTokenEntity" class="org.fancy.framework.factories.DefaultTokenEntityFactory" factory-method="getEntity" scope="prototype" />
+	<bean id="defaultAuthService" class="org.fancy.framework.services.impl.DefaultAuthService" />
+	
+	<!-- default login related beans -->
+	<bean id="loginService_v1.0" class="org.fancy.framework.services.impl.LoginService" />
+	<bean id="loginDao_v1.0" class="org.fancy.framework.daos.impl.LoginDao" />
+</beans>
