@@ -5,7 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.fancy.framework.entities.impl.UserEntity;
+import org.fancy.framework.entities.UserEntity;
 import org.fancy.framework.services.AbstractService;
 import org.fancy.framework.utils.BeanUtil;
 import org.springframework.web.bind.annotation.RequestBody;

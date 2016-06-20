@@ -6,7 +6,7 @@ package org.fancy.framework.entities;
  * @author Dongfan Yang
  * @time 2015年12月31日
  */
-public class LogBean {
+public class LogEntity {
 	
 	private String sessionId;
 	private String userAgent;

@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.RandomStringUtils;
 import org.fancy.framework.constants.FieldConsts.LogFields;
 import org.fancy.framework.daos.impl.LogDao.LogAttr;
-import org.fancy.framework.entities.LogBean;
+import org.fancy.framework.entities.LogEntity;
 import org.fancy.framework.exceptions.CheckedException;
 import org.fancy.framework.exceptions.ValueNotFoundException;
 
@@ -47,12 +47,12 @@ public class LogAdapter {
 	 * 			  the request msg to log
 	 * @return adapted log entity
 	 */
-	public LogBean adaptRequest(HttpServletRequest request, Object entity)
+	public LogEntity adaptRequest(HttpServletRequest request, Object entity)
 			throws ValueNotFoundException {
 
-		LogBean logBean = buildBasicBean(request);
-		logBean.setAttr(LogAttr.REQUEST);
-		logBean.setLogMsg(entity.toString());
+		LogEntity logEntity = buildBasicBean(request);
+		logEntity.setAttr(LogAttr.REQUEST);
+		logEntity.setLogMsg(entity.toString());
 		
 		// If first time log for a request, build a sessionId(a fix length
 		// random string) and save into attribute 
@@ -65,8 +65,8 @@ public class LogAdapter {
 			sessionId = (String) request.getAttribute(LogFields.SESSION_ID);
 		}
 
-		logBean.setSessionId(sessionId);
-		return logBean;
+		logEntity.setSessionId(sessionId);
+		return logEntity;
 	}
 
 	/**
@@ -78,13 +78,13 @@ public class LogAdapter {
 	 * 			  the response to log
 	 * @return adapted log bean
 	 */
-	public LogBean adaptResponse(HttpServletRequest request, Object result) {
-		LogBean logBean = buildBasicBean(request);
-		logBean.setAttr(LogAttr.RESPONSE);
-		logBean.setLogMsg(result.toString());
-		logBean.setSessionId((String) request
+	public LogEntity adaptResponse(HttpServletRequest request, Object result) {
+		LogEntity logEntity = buildBasicBean(request);
+		logEntity.setAttr(LogAttr.RESPONSE);
+		logEntity.setLogMsg(result.toString());
+		logEntity.setSessionId((String) request
 				.getAttribute(LogFields.SESSION_ID));
-		return logBean;
+		return logEntity;
 	}
 
 	/**
@@ -96,41 +96,41 @@ public class LogAdapter {
 	 * 			  the exception to log
 	 * @return adapted log bean
 	 */
-	public LogBean adaptException(HttpServletRequest request, Exception ex) {
-		LogBean logBean = buildBasicBean(request);
-		logBean.setAttr(LogAttr.EXCEPTION);
+	public LogEntity adaptException(HttpServletRequest request, Exception ex) {
+		LogEntity logEntity = buildBasicBean(request);
+		logEntity.setAttr(LogAttr.EXCEPTION);
 
 		// Set session id.
 		if (null == request.getAttribute(LogFields.SESSION_ID)) {
-			logBean.setSessionId(RandomStringUtils.random(SESSION_ID_LENGTH,
+			logEntity.setSessionId(RandomStringUtils.random(SESSION_ID_LENGTH,
 					SESSION_ID_SOURCE_CHARS));
 		} else {
-			logBean.setSessionId((String) request
+			logEntity.setSessionId((String) request
 					.getAttribute(LogFields.SESSION_ID));
 		}
 
 		// Set log msg into entity by exception type.
 		if (ex instanceof CheckedException) {
-			logBean.setLogMsg(ex.toString());
+			logEntity.setLogMsg(ex.toString());
 		} else {
 			String logMsg = new StringBuilder()
 					.append("{\"exception\":\"")
 					.append(ex.getMessage())
 					.append("\"}").toString();
-			logBean.setLogMsg(logMsg);
+			logEntity.setLogMsg(logMsg);
 		}
 
-		return logBean;
+		return logEntity;
 	}
 
-	private LogBean buildBasicBean(HttpServletRequest request) {
-		LogBean logBean = new LogBean();
-		logBean.setUserAgent(request.getHeader(LogFields.USER_AGENT));
-		logBean.setUri(request.getRequestURI().substring(
+	private LogEntity buildBasicBean(HttpServletRequest request) {
+		LogEntity logEntity = new LogEntity();
+		logEntity.setUserAgent(request.getHeader(LogFields.USER_AGENT));
+		logEntity.setUri(request.getRequestURI().substring(
 				request.getRequestURI().lastIndexOf("/") + 1));
-		logBean.setClientIp(request.getRemoteAddr());
+		logEntity.setClientIp(request.getRemoteAddr());
 		
-		return logBean;
+		return logEntity;
 	}
 	
 }

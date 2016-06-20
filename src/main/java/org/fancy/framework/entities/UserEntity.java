@@ -1,9 +1,8 @@
-package org.fancy.framework.entities.impl;
+package org.fancy.framework.entities;
 
-import org.fancy.framework.entities.AbstractEntity;
 import org.json.JSONObject;
 
-public class UserEntity extends AbstractEntity {
+public class UserEntity {
 
 	private String username;
 	private String password;

@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.fancy.framework.constants.ErrorConsts;
 import org.fancy.framework.constants.FieldConsts.AuthFields;
-import org.fancy.framework.entities.impl.DefaultTokenEntity;
+import org.fancy.framework.entities.DefaultTokenEntity;
 import org.fancy.framework.exceptions.CheckedException;
 import org.fancy.framework.exceptions.ValueNotFoundException;
 import org.fancy.framework.helpers.ExtractHelper;

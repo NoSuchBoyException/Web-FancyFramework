@@ -2,7 +2,6 @@ package org.fancy.framework.helpers;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.fancy.framework.entities.AbstractEntity;
 import org.fancy.framework.services.AbstractService;
 import org.fancy.framework.utils.BeanUtil;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -56,12 +55,12 @@ public class AuthHelper {
 	 * @param params
 	 *            the parameters used to build entity
 	 * @return the token entity to auth
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	public AbstractEntity getTokenEntity(HttpServletRequest request,
-			Object params) throws Exception {
+	public Object getTokenEntity(HttpServletRequest request, Object params)
+			throws Exception {
 
-		return (AbstractEntity) getAuthFactor(request, params, false);
+		return getAuthFactor(request, params, false);
 	}
 
 	/**

@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.fancy.framework.aspects.AbstractAspect;
 import org.fancy.framework.daos.AbstractDao;
-import org.fancy.framework.entities.LogBean;
+import org.fancy.framework.entities.LogEntity;
 import org.fancy.framework.helpers.LogAdapter;
 import org.fancy.framework.utils.BeanUtil;
 
@@ -30,15 +30,15 @@ public class ServiceLogAspect extends AbstractAspect {
 		Object entity = pjp.getArgs()[1];
 		
 		// log the request info
-		LogBean requestLogBean = logAdapter.adaptRequest(request, entity);
-		logDao.execute(new Object[] {requestLogBean});
+		LogEntity requestLogEntity = logAdapter.adaptRequest(request, entity);
+		logDao.execute(new Object[] {requestLogEntity});
 		
 		// do business service
 		Object result = pjp.proceed();
 		
 		// log the response info
-		LogBean responseLogBean = logAdapter.adaptResponse(request, result);
-		logDao.execute(new Object[] {responseLogBean});
+		LogEntity responseLogEntity = logAdapter.adaptResponse(request, result);
+		logDao.execute(new Object[] {responseLogEntity});
 		return result;
 	}
 

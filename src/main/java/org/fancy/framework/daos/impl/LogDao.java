@@ -2,7 +2,7 @@ package org.fancy.framework.daos.impl;
 
 import org.apache.log4j.Logger;
 import org.fancy.framework.daos.AbstractDao;
-import org.fancy.framework.entities.LogBean;
+import org.fancy.framework.entities.LogEntity;
 
 public class LogDao extends AbstractDao {
 
@@ -27,15 +27,15 @@ public class LogDao extends AbstractDao {
 	
 	@Override
 	public Object execute(Object[] params) {
-		LogBean logBean = (LogBean) params[0];
+		LogEntity logEntity = (LogEntity) params[0];
 		
 		String level = LOG_LEVET;
-		String userAgent = logBean.getUserAgent();
-		String sessionId = logBean.getSessionId();
-		String uri = logBean.getUri();
-		String clientIP = logBean.getClientIp();
-		String attr = logBean.getAttr();
-		String logMsg = logBean.getLogMsg();
+		String userAgent = logEntity.getUserAgent();
+		String sessionId = logEntity.getSessionId();
+		String uri = logEntity.getUri();
+		String clientIP = logEntity.getClientIp();
+		String attr = logEntity.getAttr();
+		String logMsg = logEntity.getLogMsg();
 		
 		String entireMsg = new StringBuilder()
 				.append(sessionId).append(LOG_SEPARATOR)
