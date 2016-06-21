@@ -31,8 +31,8 @@ public class HeaderCheckInterceptor extends HandlerInterceptorAdapter {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			return false;
 		} else if (!checkHeaderFields(request)) {
-			throw new CheckedException(ErrorConsts.EC_ILLEGAL_HEADERS,
-					ErrorConsts.MSG_ILLEGAL_HEADERS);
+			throw new CheckedException(ErrorConsts.EC_BAD_REQUEST,
+					ErrorConsts.MSG_BAD_REQUEST);
 		} else {
 			return super.preHandle(request, response, handler);
 		}

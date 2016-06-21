@@ -3,8 +3,6 @@ package org.fancy.framework.core;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fancy.framework.constants.ErrorConsts;
-import org.fancy.framework.constants.FieldConsts.ResponseFields;
 import org.fancy.framework.exceptions.CheckedException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -26,28 +24,14 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 	public ModelAndView resolveException(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex) {
 		
-		String forwardPath;
-		String errorMsg;
-		int errorCode;
-		
 		// Caught checked exception.
 		if (ex instanceof CheckedException) {
-			errorCode = ((CheckedException) ex).getErrorCode();
-			errorMsg = ((CheckedException) ex).getMessage();
-			forwardPath = CHECKED_EXCEPTION;
+			return new ModelAndView("forward:/" + CHECKED_EXCEPTION);
 			
 		// Caught runtime exception.
 		} else {
-			errorCode = ErrorConsts.EC_FAILED;
-			errorMsg = ex.getMessage();
-			forwardPath = RUNNTIME_EXCEPTION;
-			ex.printStackTrace();
+			return new ModelAndView("forward:/" + RUNNTIME_EXCEPTION);
 		}
-		
-		request.setAttribute(ResponseFields.ERROR_CODE, errorCode);
-		request.setAttribute(ResponseFields.ERROR_MSG, errorMsg);
-
-		return new ModelAndView("forward:/" + forwardPath);
 	}
 	
 }

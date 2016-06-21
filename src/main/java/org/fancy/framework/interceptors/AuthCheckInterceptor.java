@@ -26,23 +26,24 @@ public class AuthCheckInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 
+		// Get auth strategy by request context.
 		AbstractService authStrategy = authHelper.getAuthStrategy(request);
 		
 		// Not auth.
 		if (authStrategy instanceof EmptyAuthService) {
 			return super.preHandle(request, response, handler);
 		} else {
-			// get token entity from request
-			Object tokenEntity = authHelper.getTokenEntity(request, null);
-			// execute auth strategy got by request context
-			boolean authSuccess = (Boolean) authStrategy.execute(request,
+			// Get token entity from request.
+			Object tokenEntity = authHelper.getTokenEntity(request);
+			// Execute auth strategy.
+			boolean authSuccess = (Boolean) authStrategy.execute(
 					new Object[] {tokenEntity});
 
 			if (authSuccess) {
 				return super.preHandle(request, response, handler);
 			} else {
-				throw new CheckedException(ErrorConsts.EC_AUTH_FAILED,
-						ErrorConsts.MSG_AUTH_FAILED);
+				throw new CheckedException(ErrorConsts.EC_BAD_REQUEST,
+						ErrorConsts.MSG_BAD_REQUEST);
 			}
 		}
 	}

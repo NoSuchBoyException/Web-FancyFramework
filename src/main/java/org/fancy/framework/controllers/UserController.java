@@ -48,8 +48,8 @@ public class UserController {
 		AbstractService service = (AbstractService) beanUtil
 				.getBean(serviceName);
 
-		return (Map<String, Object>) service.execute(request,
-				new Object[] {entity});
+		return (Map<String, Object>) service.execute(new Object[] {request,
+				entity});
 	}
 
 }

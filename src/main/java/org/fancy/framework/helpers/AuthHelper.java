@@ -44,7 +44,7 @@ public class AuthHelper {
 	public AbstractService getAuthStrategy(HttpServletRequest request)
 			throws Exception {
 		
-		return (AbstractService) getAuthFactor(request, null, true);
+		return (AbstractService) getAuthFactor(request, true);
 	}
 
 	/**
@@ -57,10 +57,8 @@ public class AuthHelper {
 	 * @return the token entity to auth
 	 * @throws Exception
 	 */
-	public Object getTokenEntity(HttpServletRequest request, Object params)
-			throws Exception {
-
-		return getAuthFactor(request, params, false);
+	public Object getTokenEntity(HttpServletRequest request) throws Exception {
+		return getAuthFactor(request, false);
 	}
 
 	/**
@@ -75,12 +73,11 @@ public class AuthHelper {
 	 *            find and return strategy bean if true, otherwise find and
 	 *            return entity bean
 	 * @return the specific auth factor
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	
-	private Object getAuthFactor(HttpServletRequest request, Object params,
-			boolean getStrategy) throws Exception {
-		
+	private Object getAuthFactor(HttpServletRequest request, boolean getStrategy)
+			throws Exception {
+
 		String servletPath = request.getServletPath();
 		String requestName = servletPath.substring(1, servletPath.length());
 		
@@ -92,7 +89,7 @@ public class AuthHelper {
 						"defaultAuthService", null);
 			} else {
 				return getBean(requestName + "TokenEntity",
-						"defaultTokenEntity", new Object[] {request, params});
+						"defaultTokenEntity", new Object[] {request});
 			}
 		}
 	}

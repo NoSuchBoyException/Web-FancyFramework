@@ -23,7 +23,7 @@ public class DefaultTokenEntityFactory {
 	 * @return DefaultTokenEntity if parameters is valid, otherwise
 	 *         CheckedException
 	 */
-	public static Object getEntity(HttpServletRequest request, Object[] params) {
+	public static Object getEntity(HttpServletRequest request) {
 		try {
 			// Get token from HTTP header, query string or cookie.
 			String token = extractHelper.getValueFromRequest(request,
@@ -31,8 +31,8 @@ public class DefaultTokenEntityFactory {
 
 			return new DefaultTokenEntity(token);
 		} catch (ValueNotFoundException e) {
-			return new CheckedException(ErrorConsts.EC_MISSING_TOKEN,
-					ErrorConsts.MSG_MISSING_TOKEN);
+			return new CheckedException(ErrorConsts.EC_BAD_REQUEST,
+					ErrorConsts.MSG_BAD_REQUEST);
 		}
 	}
 	

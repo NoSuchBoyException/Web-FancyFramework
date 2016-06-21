@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.fancy.framework.constants.ErrorConsts;
-import org.fancy.framework.constants.FieldConsts.ResponseFields;
 import org.fancy.framework.helpers.TransHelper;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,12 +33,8 @@ public class ExceptionController {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		int errorCode = (int) request
-				.getAttribute(ResponseFields.ERROR_CODE);
-		String errorMsg = (String) request
-				.getAttribute(ResponseFields.ERROR_MSG);
-
-		return transHelper.transResultResp(errorCode, errorMsg);
+		return transHelper.transResultResp(ErrorConsts.EC_BAD_REQUEST,
+				ErrorConsts.MSG_BAD_REQUEST);
 	}
 
 	/**
@@ -54,8 +49,7 @@ public class ExceptionController {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		return transHelper.transErrorResp(
-				ErrorConsts.EC_SERVER_INTERNAL_ERROR,
+		return transHelper.transErrorResp(ErrorConsts.EC_SERVER_INTERNAL_ERROR,
 				ErrorConsts.MSG_SERVER_INTERNAL_ERROR);
 	}
 

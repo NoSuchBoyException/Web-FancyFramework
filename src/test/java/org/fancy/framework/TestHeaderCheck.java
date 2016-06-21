@@ -52,7 +52,7 @@ public class TestHeaderCheck {
 			response = new JSONObject(hTTPUtil.doPost(URL, null, null,
 					request.toString(), null));
 
-			assertEquals(response.getInt("errorCode"), -10001);
+			assertEquals(response.getInt("errorCode"), -20400);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -71,7 +71,7 @@ public class TestHeaderCheck {
 			response = new JSONObject(hTTPUtil.doPost(URL, null, null,
 					request.toString(), null));
 
-			assertEquals(response.getInt("errorCode"), -10001);
+			assertEquals(response.getInt("errorCode"), -20400);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -90,7 +90,7 @@ public class TestHeaderCheck {
 			response = new JSONObject(hTTPUtil.doPost(URL, null, null,
 					request.toString(), null));
 
-			assertEquals(response.getInt("errorCode"), -10001);
+			assertEquals(response.getInt("errorCode"), -20400);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -109,7 +109,7 @@ public class TestHeaderCheck {
 			response = new JSONObject(hTTPUtil.doPost(URL, null, null,
 					request.toString(), null));
 
-			assertEquals(response.getInt("errorCode"), -10001);
+			assertEquals(response.getInt("errorCode"), -20400);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -130,7 +130,7 @@ public class TestHeaderCheck {
 			response = new JSONObject(hTTPUtil.doPost(URL, null, null,
 					request.toString(), null));
 
-			assertEquals(response.getInt("errorCode"), -10001);
+			assertEquals(response.getInt("errorCode"), -20400);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

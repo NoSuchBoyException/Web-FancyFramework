@@ -26,8 +26,9 @@ public class ServiceLogAspect extends AbstractAspect {
 		super.doAround(pjp);
 		
 		AbstractDao logDao = (AbstractDao) beanUtil.getBean("logDao");
-		HttpServletRequest request = (HttpServletRequest) pjp.getArgs()[0];
-		Object entity = pjp.getArgs()[1];
+		Object[] params = (Object[]) pjp.getArgs()[0];
+		HttpServletRequest request = (HttpServletRequest) params[0];
+		Object entity = params[1];
 		
 		// log the request info
 		LogEntity requestLogEntity = logAdapter.adaptRequest(request, entity);
