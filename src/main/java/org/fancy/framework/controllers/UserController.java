@@ -5,8 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.fancy.framework.entities.UserEntity;
-import org.fancy.framework.services.AbstractService;
+import org.fancy.framework.entities.impl.UserEntity;
+import org.fancy.framework.services.AbstractLoginService;
 import org.fancy.framework.utils.BeanUtil;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,16 +28,15 @@ public class UserController {
 	public Map<String, Object> login(HttpServletRequest request,
 			@Valid @RequestBody UserEntity entity) throws Exception {
 		
-		return retrieveServiceAndExecute(request, entity, "1.0");
+		return loginByVer(request, entity, "1.0");
 	}
 
 	// This method can called by all request mapping method, because it
 	// dynamically generate service bean by request name and it's version,
 	// and all service bean implemented the doJob method.
 	@SuppressWarnings("unchecked")
-	private Map<String, Object> retrieveServiceAndExecute(
-			HttpServletRequest request, Object entity, String version)
-					throws Exception {
+	private Map<String, Object> loginByVer(HttpServletRequest request,
+			UserEntity entity, String version) throws Exception {
 
 		String servletPath = request.getServletPath();
 		String requestName = servletPath.substring(1, servletPath.length());
@@ -45,11 +44,10 @@ public class UserController {
 				.append(requestName).append("Service_v").append(version)
 				.toString();
 
-		AbstractService service = (AbstractService) beanUtil
+		AbstractLoginService service = (AbstractLoginService) beanUtil
 				.getBean(serviceName);
 
-		return (Map<String, Object>) service.execute(new Object[] {request,
-				entity});
+		return (Map<String, Object>) service.login(request, entity);
 	}
 
 }

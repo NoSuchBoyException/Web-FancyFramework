@@ -1,12 +1,15 @@
-package org.fancy.framework.entities;
+package org.fancy.framework.entities.impl;
 
+import org.fancy.framework.entities.AbstractEntity;
 import org.json.JSONObject;
 
-public class DefaultTokenEntity {
+public class DefaultTokenEntity extends AbstractEntity {
 
 	private String token;
 
-	public DefaultTokenEntity() {}
+	public DefaultTokenEntity() {
+		super();
+	}
 
 	public DefaultTokenEntity(String token) {
 		super();

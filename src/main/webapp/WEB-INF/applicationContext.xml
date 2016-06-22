@@ -37,12 +37,12 @@
 	
 	<!-- empty auth related beans -->
 	<bean id="emptyAuthService" class="org.fancy.framework.services.impl.EmptyAuthService" />
-
+	
 	<!-- default auth related beans -->
 	<bean id="defaultTokenEntity" class="org.fancy.framework.factories.DefaultTokenEntityFactory" factory-method="getEntity" scope="prototype" />
 	<bean id="defaultAuthService" class="org.fancy.framework.services.impl.DefaultAuthService" />
 	
-	<!-- default login related beans -->
+	<!-- login related beans -->
 	<bean id="loginService_v1.0" class="org.fancy.framework.services.impl.LoginService" />
 	<bean id="loginDao_v1.0" class="org.fancy.framework.daos.impl.LoginDao" />
 </beans>

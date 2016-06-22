@@ -2,8 +2,12 @@ package org.fancy.framework.helpers;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.fancy.framework.services.AbstractService;
+import org.fancy.framework.constants.ErrorConsts;
+import org.fancy.framework.entities.AbstractEntity;
+import org.fancy.framework.exceptions.CheckedException;
+import org.fancy.framework.services.AbstractAuthService;
 import org.fancy.framework.utils.BeanUtil;
+import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.util.ObjectUtils;
 
@@ -41,10 +45,10 @@ public class AuthHelper {
 	 * @return the auth strategy
 	 * @throws Exception 
 	 */
-	public AbstractService getAuthStrategy(HttpServletRequest request)
+	public AbstractAuthService getAuthStrategy(HttpServletRequest request)
 			throws Exception {
 		
-		return (AbstractService) getAuthFactor(request, true);
+		return (AbstractAuthService) getAuthFactor(request, true);
 	}
 
 	/**
@@ -57,8 +61,10 @@ public class AuthHelper {
 	 * @return the token entity to auth
 	 * @throws Exception
 	 */
-	public Object getTokenEntity(HttpServletRequest request) throws Exception {
-		return getAuthFactor(request, false);
+	public AbstractEntity getTokenEntity(HttpServletRequest request)
+			throws Exception {
+		
+		return (AbstractEntity) getAuthFactor(request, false);
 	}
 
 	/**
@@ -95,28 +101,24 @@ public class AuthHelper {
 	}
 
 	private Object getBean(String name, String defaultName, Object[] params)
-			throws Exception {
-		
-		Object bean;
-		
-		if (ObjectUtils.isEmpty(params)) {
-			try {
-				bean = beanUtil.getBean(name);
-			} catch (NoSuchBeanDefinitionException e) {
-				bean = beanUtil.getBean(defaultName);
+			throws CheckedException {
+		try {
+			if (ObjectUtils.isEmpty(params)) {
+				try {
+					return beanUtil.getBean(name);
+				} catch (NoSuchBeanDefinitionException e) {
+					return beanUtil.getBean(defaultName);
+				}
+			} else {
+				try {
+					return beanUtil.getBean(name, params);
+				} catch (NoSuchBeanDefinitionException e) {
+					return beanUtil.getBean(defaultName, params);
+				}
 			}
-		} else {
-			try {
-				bean = beanUtil.getBean(name, params);
-			} catch (NoSuchBeanDefinitionException e) {
-				bean = beanUtil.getBean(defaultName, params);
-			}
-		}
-		
-		if (bean instanceof Exception) {
-			throw (Exception) bean;
-		} else {
-			return bean;
+		} catch (BeanDefinitionStoreException e) {
+			throw new CheckedException(ErrorConsts.EC_BAD_REQUEST,
+					ErrorConsts.MSG_BAD_REQUEST);
 		}
 	}
 

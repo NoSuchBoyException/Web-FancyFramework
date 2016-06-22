@@ -4,9 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.fancy.framework.constants.ErrorConsts;
+import org.fancy.framework.entities.AbstractEntity;
 import org.fancy.framework.exceptions.CheckedException;
 import org.fancy.framework.helpers.AuthHelper;
-import org.fancy.framework.services.AbstractService;
+import org.fancy.framework.services.AbstractAuthService;
 import org.fancy.framework.services.impl.EmptyAuthService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -27,18 +28,17 @@ public class AuthCheckInterceptor extends HandlerInterceptorAdapter {
 			HttpServletResponse response, Object handler) throws Exception {
 
 		// Get auth strategy by request context.
-		AbstractService authStrategy = authHelper.getAuthStrategy(request);
+		AbstractAuthService authStrategy = authHelper.getAuthStrategy(request);
 		
-		// Not auth.
 		if (authStrategy instanceof EmptyAuthService) {
 			return super.preHandle(request, response, handler);
 		} else {
 			// Get token entity from request.
-			Object tokenEntity = authHelper.getTokenEntity(request);
+			AbstractEntity tokenEntity = authHelper.getTokenEntity(request);
 			// Execute auth strategy.
-			boolean authSuccess = (Boolean) authStrategy.execute(
-					new Object[] {tokenEntity});
-
+			boolean authSuccess = (Boolean) authStrategy.auth(request,
+					tokenEntity);
+	
 			if (authSuccess) {
 				return super.preHandle(request, response, handler);
 			} else {

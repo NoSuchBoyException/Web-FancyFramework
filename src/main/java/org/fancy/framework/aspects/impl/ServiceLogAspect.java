@@ -4,7 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.fancy.framework.aspects.AbstractAspect;
-import org.fancy.framework.daos.AbstractDao;
+import org.fancy.framework.daos.AbstractLogDao;
+import org.fancy.framework.entities.AbstractEntity;
 import org.fancy.framework.entities.LogEntity;
 import org.fancy.framework.helpers.LogAdapter;
 import org.fancy.framework.utils.BeanUtil;
@@ -25,21 +26,21 @@ public class ServiceLogAspect extends AbstractAspect {
 	protected Object doAround(ProceedingJoinPoint pjp) throws Throwable {
 		super.doAround(pjp);
 		
-		AbstractDao logDao = (AbstractDao) beanUtil.getBean("logDao");
-		Object[] params = (Object[]) pjp.getArgs()[0];
-		HttpServletRequest request = (HttpServletRequest) params[0];
-		Object entity = params[1];
+		AbstractLogDao logDao = (AbstractLogDao) beanUtil.getBean("logDao");
+		HttpServletRequest request = (HttpServletRequest) pjp.getArgs()[0];
+		AbstractEntity entity = (AbstractEntity) pjp.getArgs()[1];
 		
 		// log the request info
 		LogEntity requestLogEntity = logAdapter.adaptRequest(request, entity);
-		logDao.execute(new Object[] {requestLogEntity});
+		logDao.log(new Object[] {requestLogEntity});
 		
 		// do business service
-		Object result = pjp.proceed();
+		Object result = pjp.proceed(new Object[] {request, entity});
 		
 		// log the response info
 		LogEntity responseLogEntity = logAdapter.adaptResponse(request, result);
-		logDao.execute(new Object[] {responseLogEntity});
+		logDao.log(new Object[] {responseLogEntity});
+		
 		return result;
 	}
 

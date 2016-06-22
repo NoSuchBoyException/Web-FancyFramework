@@ -1,15 +1,18 @@
 package org.fancy.framework.services.impl;
 
-import java.util.HashMap;
+import javax.servlet.http.HttpServletRequest;
 
-import org.fancy.framework.services.AbstractService;
+import org.fancy.framework.entities.AbstractEntity;
+import org.fancy.framework.services.AbstractAuthService;
 
-public class EmptyAuthService extends AbstractService {
+public class EmptyAuthService extends AbstractAuthService {
 
 	@Override
-	public Object execute(Object[] params) throws Exception {
+	public Object auth(HttpServletRequest request, AbstractEntity entity)
+			throws Exception {
+
 		// Empty auth strategy, do nothing.
-		return new HashMap<>(0);
+		return null;
 	}
 
 }

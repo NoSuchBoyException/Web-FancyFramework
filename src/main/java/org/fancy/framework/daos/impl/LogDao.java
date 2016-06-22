@@ -1,10 +1,10 @@
 package org.fancy.framework.daos.impl;
 
 import org.apache.log4j.Logger;
-import org.fancy.framework.daos.AbstractDao;
+import org.fancy.framework.daos.AbstractLogDao;
 import org.fancy.framework.entities.LogEntity;
 
-public class LogDao extends AbstractDao {
+public class LogDao extends AbstractLogDao {
 
 	private static final String LOG_SEPARATOR = "|";
 	private static final String LOG_LEVET = LogLevel.INFO;
@@ -26,7 +26,7 @@ public class LogDao extends AbstractDao {
 	}
 	
 	@Override
-	public Object execute(Object[] params) {
+	public void log(Object[] params) {
 		LogEntity logEntity = (LogEntity) params[0];
 		
 		String level = LOG_LEVET;
@@ -64,8 +64,6 @@ public class LogDao extends AbstractDao {
 			logger.info(entireMsg);
 			break;
 		}
-		
-		return true;
 	}
 
 }

@@ -1,11 +1,20 @@
 package org.fancy.framework.daos.impl;
 
-import org.fancy.framework.daos.AbstractDao;
+import java.util.HashMap;
+import java.util.Map;
 
-public class LoginDao extends AbstractDao {
+import org.fancy.framework.constants.ErrorConsts;
+import org.fancy.framework.constants.FieldConsts.ResponseFields;
+import org.fancy.framework.daos.AbstractLoginDao;
 
-	public Object execute(Object[] params) throws Exception {
-		return null;
+public class LoginDao extends AbstractLoginDao {
+
+	@Override
+	public Object login(Object[] params) throws Exception {
+		// Mock login result
+		Map<String, Object> responseMap = new HashMap<>();
+		responseMap.put(ResponseFields.ERROR_CODE, ErrorConsts.EC_SUCCESS);
+		return responseMap;
 	}
-	
+
 }

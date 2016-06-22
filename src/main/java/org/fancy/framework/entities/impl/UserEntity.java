@@ -1,13 +1,16 @@
-package org.fancy.framework.entities;
+package org.fancy.framework.entities.impl;
 
+import org.fancy.framework.entities.AbstractEntity;
 import org.json.JSONObject;
 
-public class UserEntity {
+public class UserEntity extends AbstractEntity {
 
 	private String username;
 	private String password;
 	
-	public UserEntity() {}
+	public UserEntity() {
+		super();
+	}
 	
 	public UserEntity(String username, String password) {
 		super();
